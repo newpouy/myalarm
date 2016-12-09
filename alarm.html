@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script   src="https://code.jquery.com/jquery-2.2.1.min.js"   integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="   crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+<title>네이미 명함솔루션 연동 스크립트예제</title>
+<style>
+body { background-color: white}
+</style>
+<script type="text/javascript">
+var sleep_time_minute;
+var getup_time_milli;
+	function inputSleepTime() {
+    sleep_time_minute = document.getElementById('sleep_time').value;
+    var sleep_time_milli = sleep_time_minute*1000*60; //*60*60;
+    alert(sleep_time_minute+'분 후부터 알람');
+    var date = new Date();
+    getup_time_milli = date.getTime()+sleep_time_milli;
+    document.getElementById('sleep_time').style.backgroundColor = '#e2e8ec';
+    var formatted_getup_time =  new Date(getup_time_milli);
+    document.getElementById('alarm_time').value = formatted_getup_time.toString();
+	}
+
+  function alarm(){
+    console.log('hihi')
+    var date = new Date();
+    var sysNowTime_milli = date.getTime();
+    var remain_time_milli = getup_time_milli - sysNowTime_milli;
+    console.log('sysNowTime: ', sysNowTime_milli,' / getup_time_milli: ', getup_time_milli, ' / remain_time_milli: '+remain_time_milli);
+    if(sysNowTime_milli>getup_time_milli){
+      //window.open('https://www.youtube.com/watch?v=c7rCyll5AeY','tt','width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes');
+      location.href = 'https://www.youtube.com/watch?v=c7rCyll5AeY';
+    }
+  }
+
+  setInterval("alarm();",5000);
+</script>
+</head>
+<body>
+
+<div class="container">
+
+	<div class="well" style="margin-top:30px;">
+   		<h1>네이미 명함솔루션 연동 테스트예제 페이지입니다.</h1>
+   	</div>
+
+	<form name="nameeLogin" method="post">
+
+		<div class="row">
+			<div class="form-group col-xs-5">
+				<label for="company_cd"></label>수면시간(분)
+				<input type="text" name="sleep_time" class="form-control" id="sleep_time" placeholder="" value="" required="required" />
+			</div>
+      <div class="form-group col-xs-5">
+				<label for="company_cd"></label>알람시간
+				<input type="text" name="alarm_time" class="form-control" id="alarm_time" placeholder="" value="" required="required" />
+			</div>
+
+  		<button type="button" class="btn btn-default" onclick="javascript:inputSleepTime();">입력</button>
+	</form>
+	<iframe id="submitIframe" name="submitIframe" style="display:none;" />
+</div>
+</body>
+</html>
